@@ -5,14 +5,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
+@Table(name = "teacher")
 public class Teacher extends Person{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String teacherId;
     private String password;
-    private String subjectId;
-    private String courseId;
 
     // Constructors
     public Teacher(){
@@ -35,34 +34,19 @@ public class Teacher extends Person{
         this.password = password;
     }
 
-    public String getSubjectId() {
-        return subjectId;
-    }
 
-    public void setSubjectId(String subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Teacher teacher = (Teacher) o;
-        return Objects.equals(teacherId, teacher.teacherId) && Objects.equals(password, teacher.password)
-                && Objects.equals(subjectId, teacher.subjectId) && Objects.equals(courseId, teacher.courseId);
+        return Objects.equals(teacherId, teacher.teacherId) && Objects.equals(password, teacher.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), teacherId, password, subjectId, courseId);
+        return Objects.hash(super.hashCode(), teacherId, password);
     }
 
     @Override
@@ -70,8 +54,6 @@ public class Teacher extends Person{
         return "Teacher{" +
                 "teacherId='" + teacherId + '\'' +
                 ", password='" + password + '\'' +
-                ", subjectId='" + subjectId + '\'' +
-                ", courseId='" + courseId + '\'' +
                 '}';
     }
 

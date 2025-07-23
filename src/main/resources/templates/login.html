@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Student Management App</title>
     <meta charset="UTF-8">
@@ -10,29 +10,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700;900&display=swap"
           rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
     <header id="main-header">
         <div class="container">
-            <a href=""><img src="../images/gti-logo.png" alt="Logo for Login Page"></a>
+            <a href=""><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
             <h1>Student Management App Further Education College</h1>
         </div>
     </header>
     <section id="login">
         <div class="container form">
-            <form action="" method="POST">
+            <form th:action="@{/}" th:object="${loginRequest}" method="POST">
                 <div>
-                    <label for="contact-email">Email</label>
-                    <input type="email" id="contact-email" name="contact-email" placeholder="Your email" required>
+                    <label for="email">Email</label>
+                    <input type="email" th:field="*{email}" id="email" placeholder="Your email" required>
                 </div>
                 <div>
-                    <label for="contact-password">Password</label>
-                    <input type="password" id="contact-password" name="contact-password" placeholder="Your password" required>
+                    <label for="password">Password</label>
+                    <input type="password" th:field="*{password}" id="password" placeholder="Your password" required>
                     <p class="muted"><em>All fields are required.</em></p>
                 </div>
                 <div class="right">
                     <button class="btn" type="submit">Login</button>
+                </div>
+                <div th:if="${error}" style="color: red;">
+                    <p th:text="${error}"></p>
                 </div>
             </form>
         </div>
@@ -41,7 +44,7 @@
             <p>This Application is built by raw HTML5, CSS, Java and Spring Boot as part my college's final project.</p>
             <p>I migrated Web application to AWS EC2 and Database to RDS</p>
             <p>Please, find the login details below.</p>
-            <p>To log in as a <b>teacher</b>, please use the email address <b>johndoe@gretb.ie</b> and the password <b>john123</b>.</p>
+            <p>To log in as a <b>teacher</b>, please use the email address <b>johndoe@gretb.ie</b> and the password <b>john123</b></p>
             <p>If you would like to check raw coding please visit my <a href="https://github.com/CaglarCetinceviz?tab=repositories">GitHub page </a> </p>
         </div>
     </section>

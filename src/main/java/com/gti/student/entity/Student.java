@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
+@Table(name = "student")
 public class Student extends Person {
 
     @Id

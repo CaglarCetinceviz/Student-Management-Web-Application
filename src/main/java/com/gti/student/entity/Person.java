@@ -19,6 +19,7 @@ public abstract class Person {
     private String gender;
     @Email
     @NotBlank(message = "Email Address is required")
+    @Column(name = "email")
     private String email;
     @Size(min = 10, max = 15)
     private String phoneNumber;
@@ -26,7 +27,7 @@ public abstract class Person {
     private String addressLineTwo;
     private String city;
     private String eircode;
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     // Constructors
     public Person() {
@@ -35,7 +36,7 @@ public abstract class Person {
 
     // Full Constructor
     public Person(String firstName, String surName, String ppsn, String gender, String email,
-                  String phoneNumber, String addressLineOne, String addressLineTwo, String city, String eircode, LocalDate dateOfBirth) {
+                  String phoneNumber, String addressLineOne, String addressLineTwo, String city, String eircode, String dateOfBirth) {
         this.firstName = firstName;
         this.surName = surName;
         this.ppsn = ppsn;
@@ -129,11 +130,11 @@ public abstract class Person {
         this.eircode = eircode;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

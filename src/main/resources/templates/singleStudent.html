@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Single Student Search</title>
     <meta charset="UTF-8">
@@ -10,37 +10,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700;900&display=swap"
           rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/singleStudent.css">
+    <link rel="stylesheet" href="css/singleStudent.css">
 </head>
 <body>
     <header id="main-header">
         <div class="container">
-            <a href=""><img src="../images/gti-logo.png" alt="Logo for Login Page"></a>
+            <a href=""><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
             <h1>Student Management App Further Education College</h1>
+            <h2>Welcome <span th:text="${name}"></span> <span th:text="${surname}"></span>!</h2>
         </div>
     </header>
     <section id="main-body">
 
-        <div class="subject-container">
-            <label for="select-subject">Select Subject</label>
-            <select name="select-subject" id="select-subject">
-                <option value="6N0736">Graphical User Interface Programming</option>
-                <option value="6N2108">Object Oriented Programming</option>
-                <option value="6N4785">Relational Database Subject</option>
-                <option value="6N4090">Project Management</option>
-                <option value="6N0734">Mobile Technologies</option>
-            </select>
-        </div>
+        <form th:action="@{/searchStudent}" method="POST">
+            <div class="subject-container">
+                <label for="select-subject">Select Subject</label>
+                <select name="select-subject" id="select-subject">
+                    <option th:each="subject : ${subjects}"
+                            th:value="${subject.subjectId}"
+                            th:text="|${subject.subjectId} - ${subject.subjectName}|">
+                    </option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <div class="container small">
+                    <label for="student-id">Student ID</label>
+                    <input type="text" name="student-id" id="student-id">
+                </div>
+                <div class="container small">
+                    <button class="btn" type="submit" name="action" value="search">Search By ID</button>
+                    <button class="btn id" type="submit" name="action" value="info">Student Info</button>
+                </div>
+            </div>
+        </form>
 
         <div class="input-container">
-            <div class="container small">
-                <label for="student-id">Student ID</label>
-                <input type="text" name="student-id" id="student-id">
-            </div>
-            <div class="container small">
-                <button class="btn" type="submit">Student Info</button>
-                <button class="btn id" type="submit">Search By ID</button>
-            </div>
             <div class="container small">
                 <label for="full-name">Full Name</label>
                 <input type="text" name="full-name" id="full-name">
@@ -74,6 +79,7 @@
                 <button class="btn" type="submit">Delete</button>
             </div>
         </div>
+
     </section>
 </body>
 </html>
