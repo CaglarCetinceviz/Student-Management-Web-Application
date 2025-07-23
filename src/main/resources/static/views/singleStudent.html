@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Single Student Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700;900&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/singleStudent.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <a href=""><img src="../images/gti-logo.png" alt="Logo for Login Page"></a>
+            <h1>Student Management App Further Education College</h1>
+        </div>
+    </header>
+    <section id="main-body">
+
+        <div class="subject-container">
+            <label for="select-subject">Select Subject</label>
+            <select name="select-subject" id="select-subject">
+                <option value="6N0736">Graphical User Interface Programming</option>
+                <option value="6N2108">Object Oriented Programming</option>
+                <option value="6N4785">Relational Database Subject</option>
+                <option value="6N4090">Project Management</option>
+                <option value="6N0734">Mobile Technologies</option>
+            </select>
+        </div>
+
+        <div class="input-container">
+            <div class="container small">
+                <label for="student-id">Student ID</label>
+                <input type="text" name="student-id" id="student-id">
+            </div>
+            <div class="container small">
+                <button class="btn" type="submit">Student Info</button>
+                <button class="btn id" type="submit">Search By ID</button>
+            </div>
+            <div class="container small">
+                <label for="full-name">Full Name</label>
+                <input type="text" name="full-name" id="full-name">
+            </div>
+            <div class="container small">
+                <label for="first-grade">First Grade</label>
+                <input type="text" name="first-grade" id="first-grade">
+            </div>
+            <div class="container small">
+                <label for="second-grade">Second Grade</label>
+                <input type="text" name="second-grade" id="second-grade">
+            </div>
+            <div class="container small">
+                <label for="third-grade">Third Grade</label>
+                <input type="text" name="third-grade" id="third-grade">
+            </div>
+            <div class="container small">
+                <label for="final-exam">Final Exam</label>
+                <input type="text" name="final-exam" id="final-exam">
+            </div>
+            <div class="container small">
+                <label for="result">Result</label>
+                <input type="text" name="result" id="result">
+            </div>
+            <div class="container small">
+                <p class="muted"><em>All fields are required.</em></p>
+            </div>
+            <div class="container small">
+                <button class="btn" type="submit">Class Group</button>
+                <button class="btn" type="submit">Add / Update</button>
+                <button class="btn" type="submit">Delete</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

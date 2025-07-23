@@ -1,0 +1,136 @@
+/* Reset */
+* {
+    box-sizing: border-box;
+    /* Reset padding and margin on all elements */
+    margin: 0;
+    padding: 0;
+}
+
+/* Typography */
+
+html {
+    font-size: 12px;
+    text-align: center;
+}
+
+body {
+    font-family: 'poppins', sans-serif;
+    line-height: 1.55;
+    color: rgb(60,58,71);
+    background: rgb(239, 240, 234, 1);
+}
+
+h1 {
+    font-size: 3.15rem !important;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-top: 1rem !important;
+}
+
+h2 {
+    padding : 2rem 0;
+}
+.description p {
+    padding-bottom: 1rem;
+    font-size: 14px;
+}
+.description {
+    padding: 2rem 2rem;
+    color: rgb(255, 255, 255);
+    width: 90%;
+}
+.description p a {
+    font-weight: 700;
+    text-decoration: none;
+    color: rgb(159, 118, 87);
+}
+
+.footer p a {
+    font-weight: 700;
+    text-decoration: none;
+    color: rgb(159, 118, 87);
+}
+
+/* Container */
+
+.container{
+    padding: 2rem 0;
+    margin: 0 auto;
+
+}
+
+.container.form{
+    width: 90%;
+}
+.form {
+    padding: 2rem 2rem;
+}
+
+.btn {
+    padding: 1.1rem 5rem;
+    margin: auto auto;
+    border: 1px solid rgba(255, 255, 255, 0.80);
+    border-radius: 5px;
+    font-weight: 700;
+    background-color: rgb(255, 255, 255);
+    color: rgb(159, 118, 87);
+
+}
+
+.btn:hover {
+    background-image: linear-gradient(to right, rgb(0,153,153) , rgb(0, 204, 204));
+    color: rgb(60, 58, 71)
+}
+.muted {
+    color: rgb(255, 255, 255);
+    text-align: left;
+    padding-top: 0.5rem;
+}
+.right {
+    text-align: right;
+}
+
+
+/* header */
+#main-header {
+    padding: 2rem 0 ;
+    margin: 4rem 2rem 1rem 2rem;
+}
+#login {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3.5rem;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, rgb(60, 58, 71) , rgb(60, 118, 121));
+    /*background-color: rgb(60, 58, 71);*/
+    width: 60%;
+    padding: 2rem 2rem;
+    margin: 2rem auto;
+}
+#login form div {
+    padding: 1rem 0rem 4rem 0rem;
+}
+form label {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: start;
+    margin-bottom: .5rem;
+    color: rgb(255, 255, 255);
+}
+form input{
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    width: 100%;
+    padding: 1rem;
+    color: rgb(255, 255, 255);
+    resize: none;
+}
+form input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.80);
+    color: rgb(60,58,71);
+}
+#footer {
+    padding: 10rem 0 0 0;
+}
