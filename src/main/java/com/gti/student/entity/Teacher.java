@@ -10,7 +10,7 @@ public class Teacher extends Person{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private String teacherId;
+    private Integer teacherId;
     private String password;
 
     // Constructors
@@ -18,11 +18,11 @@ public class Teacher extends Person{
         //Default Constructor
     }
 
-    public String getTeacherId() {
+    public Integer getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(String teacherId) {
+    public void setTeacherId(Integer teacherId) {
         this.teacherId = teacherId;
     }
 

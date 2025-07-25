@@ -13,21 +13,22 @@
     <link rel="stylesheet" href="css/singleStudent.css">
 </head>
 <body>
-    <header id="main-header">
-        <div class="container">
-            <a href=""><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
-            <h1>Student Management App Further Education College</h1>
-            <h2>Welcome <span th:text="${name}"></span> <span th:text="${surname}"></span>!</h2>
-        </div>
-    </header>
+<header id="main-header">
+    <div class="container">
+        <a href=""><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
+        <h1>Student Management App Further Education College</h1>
+        <h2>Welcome <span th:text="${name}"></span> <span th:text="${surname}"></span> <span th:text="${teacherId}"></span>!</h2>
+    </div>
+</header>
     <section id="main-body">
 
         <form th:action="@{/searchStudent}" method="POST">
             <div class="subject-container">
                 <label for="select-subject">Select Subject</label>
-                <select name="select-subject" id="select-subject">
+                <select name="subjectId" id="select-subject" title="Select Subject">
                     <option th:each="subject : ${subjects}"
                             th:value="${subject.subjectId}"
+                            th:selected="${subject.subjectId == selectedSubjectId}"
                             th:text="|${subject.subjectId} - ${subject.subjectName}|">
                     </option>
                 </select>
@@ -36,50 +37,67 @@
             <div class="input-container">
                 <div class="container small">
                     <label for="student-id">Student ID</label>
-                    <input type="text" name="student-id" id="student-id">
+                    <input type="number" name="studentId" id="student-id" min="1" max="999999" required
+                           title="Enter a number with up to 6 digits" th:value="${selectedStudentId}">
+                </div>
+
+                <div th:if="${studentNotFound}">
+                    <p style="color: red;">Student not found!</p>
+                </div>
+
+                <div th:if="${studentNotEnrolledInSubject}">
+                    <p style="color:orange;">This student is not enrolled in the selected subject.</p>
+                </div>
+
+                <div th:if="${noGradesFound}">
+                    <p style="color: yellow;">No grades found for selected subject. Please, use add / update to add.</p>
+                </div>
+
+                <div class="container small">
+                    <button class="btn id" type="submit" name="action" value="info" title="Go to student Info">Student Info</button>
+                    <button class="btn" type="submit" name="action" value="search" title="Search entered student ID with selected subject">Search By ID</button>
+                </div>
+            </div>
+
+
+            <div class="input-container">
+                <div class="container small">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" name="full-name" id="full-name" th:value="${fullName}" disabled>
                 </div>
                 <div class="container small">
-                    <button class="btn" type="submit" name="action" value="search">Search By ID</button>
-                    <button class="btn id" type="submit" name="action" value="info">Student Info</button>
+                    <label for="first-grade">First Grade</label>
+                    <input type="number" step="1" name="first-grade" id="first-grade" th:value="${firstGrade}" min="0" max="99.99" title="Enter a result with up to 99.99 digits">
                 </div>
+                <div class="container small">
+                    <label for="second-grade">Second Grade</label>
+                    <input type="number" step="1" name="second-grade" id="second-grade" th:value="${secondGrade}" min="0" max="99.99" title="Enter a result with up to 99.992 digits">
+                </div>
+                <div class="container small">
+                    <label for="third-grade">Third Grade</label>
+                    <input type="number" step="1" name="third-grade" id="third-grade" th:value="${thirdGrade}" min="0" max="99.99" title="Enter a result with up to 99.99 digits">
+                </div>
+                <div class="container small">
+                    <label for="final-exam">Final Exam</label>
+                    <input type="number" step="1" name="final-exam" id="final-exam" th:value="${finalExam}" min="0" max="99.99" title="Enter a result with up to99.99 digits">
+                </div>
+                <div class="container small">
+                    <label for="result">Result</label>
+                    <input type="text" name="result" id="result" disabled>
+                </div>
+                <div class="container small">
+                    <p class="muted"><em>All fields are required.</em></p>
+                </div>
+                    <div class="container small">
+                        <button class="btn" type="submit" name="action" value="classGroup" title="Results by Class">Class Group</button>
+                        <button class="btn" type="submit" name="action" value="addUpdate" title="Update all grades">Add / Update</button>
+                        <button class="btn" type="submit" name="action" value="delete" title="Delete all grades">Delete</button>
+                    </div>
+                    <div th:if="${message}">
+                        <p style="color: greenyellow;" th:text="${message}"></p>
+                    </div>
             </div>
         </form>
-
-        <div class="input-container">
-            <div class="container small">
-                <label for="full-name">Full Name</label>
-                <input type="text" name="full-name" id="full-name">
-            </div>
-            <div class="container small">
-                <label for="first-grade">First Grade</label>
-                <input type="text" name="first-grade" id="first-grade">
-            </div>
-            <div class="container small">
-                <label for="second-grade">Second Grade</label>
-                <input type="text" name="second-grade" id="second-grade">
-            </div>
-            <div class="container small">
-                <label for="third-grade">Third Grade</label>
-                <input type="text" name="third-grade" id="third-grade">
-            </div>
-            <div class="container small">
-                <label for="final-exam">Final Exam</label>
-                <input type="text" name="final-exam" id="final-exam">
-            </div>
-            <div class="container small">
-                <label for="result">Result</label>
-                <input type="text" name="result" id="result">
-            </div>
-            <div class="container small">
-                <p class="muted"><em>All fields are required.</em></p>
-            </div>
-            <div class="container small">
-                <button class="btn" type="submit">Class Group</button>
-                <button class="btn" type="submit">Add / Update</button>
-                <button class="btn" type="submit">Delete</button>
-            </div>
-        </div>
-
     </section>
 </body>
 </html>

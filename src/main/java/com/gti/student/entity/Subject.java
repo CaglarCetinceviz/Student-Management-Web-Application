@@ -10,6 +10,9 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String subjectId;
     private String subjectName;
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
     public String getSubjectId() {
         return subjectId;
@@ -25,5 +28,13 @@ public class Subject {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

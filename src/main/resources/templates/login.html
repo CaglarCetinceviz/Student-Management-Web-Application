@@ -20,6 +20,14 @@
         </div>
     </header>
     <section id="login">
+        <div class="container description" >
+            <h2>Welcome to Student Management App</h2>
+            <p>This Application is built by raw HTML5, CSS, Java and Spring Boot as part my college's final project.</p>
+            <p>I migrated Web application to AWS EC2 and Database to RDS</p>
+            <p>Please, find the login details below.</p>
+            <p>To log in as a <b>teacher</b>, please use the email address <b>johndoe@gretb.ie</b> and the password <b>john123</b></p>
+            <p>If you would like to check raw coding please visit my <a href="https://github.com/CaglarCetinceviz?tab=repositories">GitHub page </a> </p>
+        </div>
         <div class="container form">
             <form th:action="@{/}" th:object="${loginRequest}" method="POST">
                 <div>
@@ -38,14 +46,6 @@
                     <p th:text="${error}"></p>
                 </div>
             </form>
-        </div>
-        <div class="container description" >
-            <h2>Welcome to Student Management App</h2>
-            <p>This Application is built by raw HTML5, CSS, Java and Spring Boot as part my college's final project.</p>
-            <p>I migrated Web application to AWS EC2 and Database to RDS</p>
-            <p>Please, find the login details below.</p>
-            <p>To log in as a <b>teacher</b>, please use the email address <b>johndoe@gretb.ie</b> and the password <b>john123</b></p>
-            <p>If you would like to check raw coding please visit my <a href="https://github.com/CaglarCetinceviz?tab=repositories">GitHub page </a> </p>
         </div>
     </section>
     <footer>
