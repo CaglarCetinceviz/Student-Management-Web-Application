@@ -30,6 +30,15 @@ public class Grade {
     @Column(name = "over_all", insertable = false, updatable = false)
     private Double overAll;
 
+    @ManyToOne
+    @JoinColumn(name = "student_id", insertable = false, updatable = false)
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "subject_id", referencedColumnName = "subjectId", insertable = false, updatable = false)
+    private Subject subject;
+
+
     public int getGradeId() {
         return gradeId;
     }
@@ -44,6 +53,10 @@ public class Grade {
 
     public void setStudentId(int studentId) {
         this.studentId = studentId;
+    }
+
+    public Subject getSubject() {
+        return subject;
     }
 
     public String getSubjectId() {
@@ -95,13 +108,6 @@ public class Grade {
     }
 
 
-    @ManyToOne
-    @JoinColumn(name = "student_id", insertable = false, updatable = false)
-    private Student student;
-
-    @ManyToOne
-    @JoinColumn(name = "subject_id", insertable = false, updatable = false)
-    private Subject subject;
 
     @Override
     public boolean equals(Object o) {

@@ -13,6 +13,149 @@
     <link rel="stylesheet" href="css/studentDetails.css">
 </head>
 <body>
+    <header id="main-header">
+        <div class="container">
+            <a href=""><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
+            <h1>Student Management App Further Education College</h1>
+            <h2>Welcome <span th:text="${name}"></span> <span th:text="${surname}"></span> <span
+                    th:text="${teacherId}"></span>!</h2>
+        </div>
+    </header>
+
+    <section id="main-body">
+        <div class="studentDetails">
+            <div class="container left">
+                <form th:action="@{/searchStudentInfo}" method="post">
+
+                    <div class="row">
+                        <label for="student-id">Student ID</label>
+                        <input type="number" name="studentId" id="student-id" min="1" max="999999"
+                               title="Enter a number with up to 6 digits"
+                               th:value="${studentId != null} ? ${studentId} : ''">
+                    </div>
+                    <div class="row">
+                        <button class="btn" type="submit" name="action" value="search"
+                                title="Search entered student ID with selected subject">Search By ID
+                        </button>
+                    </div>
+                </form>
+                <form th:action="@{/updateStudentInfo}" method="POST">
+                    <div class="row">
+                        <label for="first-name">First Name</label>
+                        <input type="text" name="firstName" id="first-name" title="Please enter first name" required
+                               th:value="${firstName}">
+                    </div>
+                    <div class="row">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" name="lastName" id="last-name" title="Please enter last name" required
+                               th:value="${lastName}">
+                    </div>
+                    <div class="row">
+                        <label for="classCode">Class Code</label>
+                        <input type="text" name="classCode" id="classCode" title="Please enter the class code" required
+                               th:value="${classCode}">
+                    </div>
+                    <div class="row">
+                        <label for="PPSN">PPSN</label>
+                        <input type="text" name="PPSN" id="PPSN" title="Please enter PPSN" required
+                               th:value="${PPSN}">
+                    </div>
+                    <div class="row">
+                        <label for="gender">Gender</label>
+                        <input type="text" name="gender" id="gender" title="Please enter gender" required
+                               th:value="${gender}">
+                    </div>
+                    <div class="row">
+                        <label for="dob">Date of Birth</label>
+                        <input type="text" name="dob" id="dob" title="Please enter dob" required
+                               th:value="${dob}">
+                    </div>
+
+                    <div class="row">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" title="Please enter email" required
+                               th:value="${email}">
+                    </div>
+                    <div class="row">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" id="phone" title="Please enter phone number" required
+                               th:value="${phone}">
+                    </div>
+                    <div class="row">
+                        <label for="addressLineOne">Address Line One</label>
+                        <input type="text" name="addressLineOne" id="addressLineOne"
+                               title="Please enter address line one"
+                               th:value="${addressLineOne}">
+                    </div>
+                    <div class="row">
+                        <label for="addressLineTwo">Address Line Two</label>
+                        <input type="text" name="addressLineTwo" id="addressLineTwo"
+                               title="Please enter address line two"
+                               th:value="${addressLineTwo}">
+                    </div>
+                    <div class="row">
+                        <label for="city">City</label>
+                        <input type="text" name="city" id="city" title="Please enter city"
+                               th:value="${city}">
+                    </div>
+                    <div class="row">
+                        <label for="eircode">Eircode</label>
+                        <input type="text" name="eircode" id="eircode" title="Please enter eircode"
+                               th:value="${eircode}">
+                    </div>
+
+                    <input type="hidden" name="_method" value="PUT"/>
+                    <input type="hidden" name="studentId" th:value="${studentId}"/>
+                    <div class="row">
+                        <button class="btn" type="submit" name="action" value="update"
+                                title="Update the student details">Update Student Details
+                        </button>
+                    </div>
+                </form>
+                <form>
+                    <div class="row">
+                        <button class="btn print" type="submit" name="action" value="print" title="Not functional yet"
+                                disabled>
+                            Print & Save as PDF
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table">
+            <div class="container right">
+                <!--                table comes here-->
+                <table style="border-collapse: collapse; width: 100%;">
+                    <thead>
+                    <tr>
+                        <th>Subject Code</th>
+                        <th>First Grade</th>
+                        <th>Second Grade</th>
+                        <th>Third Grade</th>
+                        <th>Final Exam</th>
+                        <th>Overall</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="grade : ${grades}" style="border-bottom: 1px solid #ccc;">
+                        <td th:text="|${grade.subjectId} - ${grade.subject.subjectName}|"></td>
+                        <td th:text="${grade.firstGrade}"></td>
+                        <td th:text="${grade.secondGrade}"></td>
+                        <td th:text="${grade.thirdGrade}"></td>
+                        <td th:text="${grade.finalExam}"></td>
+                        <td th:text="${grade.overAll}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${errorMessage}">
+                <p style="color: red;" th:text="${errorMessage}"></p>
+            </div>
+            <div th:if="${message}">
+                <p style="color: greenyellow;" th:text="${message}"></p>
+            </div>
+        </div>
+    </section>
 
 </body>
 </html>
