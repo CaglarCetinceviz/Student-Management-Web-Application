@@ -20,6 +20,12 @@
             <h2>Welcome <span th:text="${name}"></span> <span th:text="${surname}"></span> <span
                     th:text="${teacherId}"></span>!</h2>
         </div>
+        <div>
+            <h3>Your authorized Subjects to modify:</h3>
+            <div th:each="teacherSubject : ${teacherSubjects}">
+                <p th:text="'Subject ID: ' + ${teacherSubject.subjectId} + ' - Name: ' + ${teacherSubject.subjectName}"></p>
+            </div>
+        </div>
     </header>
     <section id="main-body">
 
@@ -104,7 +110,7 @@
                 </div>
                 <div class="container small">
                     <label for="result">Result</label>
-                    <input type="text" name="result" id="result" disabled>
+                    <input type="text" name="result" id="result" th:value="${overAll}" disabled>
                 </div>
             </div>
         </form>

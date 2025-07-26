@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"name", "surname", "teacherId"})
+@SessionAttributes({"name", "surname", "teacherId","teacherSubjects"})
 public class StudentController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -33,11 +33,15 @@ public class StudentController {
     @GetMapping("/singlestudent")
     public String showSingleStudentPage(Model model,
                                         @ModelAttribute("name") String name,
-                                        @ModelAttribute("surname") String surname) {
+                                        @ModelAttribute("surname") String surname,
+                                        @ModelAttribute("teacherId") Integer teacherId) {
+
         List<Subject> subjects = subjectRepository.findAll();
+        List<Subject> teacherSubjects = subjectRepository.findByTeacher_TeacherId(teacherId);
         model.addAttribute("subjects", subjects);
         model.addAttribute("name",name);
         model.addAttribute("surname",surname);
+        model.addAttribute("teacherSubjects",teacherSubjects);
         return "singleStudent";
     }
 
@@ -76,6 +80,8 @@ public class StudentController {
         // Always reload subjects
         List<Subject> subjects = subjectRepository.findAll();
         model.addAttribute("subjects", subjects);
+        List<Subject> teacherSubjects = subjectRepository.findByTeacher_TeacherId(teacherId);
+        model.addAttribute("teacherSubjects", teacherSubjects);
         return "singleStudent";
     }
 
@@ -161,6 +167,13 @@ public class StudentController {
                     model.addAttribute("secondGrade", record.getSecondGrade());
                     model.addAttribute("thirdGrade", record.getThirdGrade());
                     model.addAttribute("finalExam", record.getFinalExam());
+                    if (record.getOverAll() >= 80) {
+                        model.addAttribute("overAll", "A Distinction");
+                    } else if (record.getOverAll() >= 50 && record.getOverAll() <= 80) {
+                        model.addAttribute("overAll", "B Not Bad");
+                    } else {
+                        model.addAttribute("overAll", "You are failed!");
+                    }
                 } else {
                     model.addAttribute("noGradesFound", true);
                 }
