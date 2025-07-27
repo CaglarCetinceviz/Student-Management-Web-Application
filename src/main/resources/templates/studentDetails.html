@@ -26,7 +26,6 @@
         <div class="studentDetails">
             <div class="container left">
                 <form th:action="@{/searchStudentInfo}" method="post">
-
                     <div class="row">
                         <label for="student-id">Student ID</label>
                         <input type="number" name="studentId" id="student-id" min="1" max="999999"
@@ -127,24 +126,24 @@
                 <!--                table comes here-->
                 <table style="border-collapse: collapse; width: 100%;">
                     <thead>
-                    <tr>
-                        <th>Subject Code</th>
-                        <th>First Grade</th>
-                        <th>Second Grade</th>
-                        <th>Third Grade</th>
-                        <th>Final Exam</th>
-                        <th>Overall</th>
-                    </tr>
+                        <tr>
+                            <th>Subject Code</th>
+                            <th>First Grade</th>
+                            <th>Second Grade</th>
+                            <th>Third Grade</th>
+                            <th>Final Exam</th>
+                            <th>Overall</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="grade : ${grades}" style="border-bottom: 1px solid #ccc;">
-                        <td th:text="|${grade.subjectId} - ${grade.subject.subjectName}|"></td>
-                        <td th:text="${grade.firstGrade}"></td>
-                        <td th:text="${grade.secondGrade}"></td>
-                        <td th:text="${grade.thirdGrade}"></td>
-                        <td th:text="${grade.finalExam}"></td>
-                        <td th:text="${grade.overAll}"></td>
-                    </tr>
+                        <tr th:each="grade : ${grades}" style="border-bottom: 1px solid #ccc;">
+                            <td th:text="|${grade.subjectId} - ${grade.subject.subjectName}|"></td>
+                            <td th:text="${grade.firstGrade}"></td>
+                            <td th:text="${grade.secondGrade}"></td>
+                            <td th:text="${grade.thirdGrade}"></td>
+                            <td th:text="${grade.finalExam}"></td>
+                            <td th:text="${grade.overAll}"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

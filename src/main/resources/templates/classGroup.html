@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Class Group Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700;900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="css/classGroup.css">
+</head>
+<body>
+<header id="main-header">
+    <div class="container">
+        <a href=""><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
+        <h1>Student Management App Further Education College</h1>
+        <h2>Welcome, <span th:text="${name}">Name</span> <span th:text="${surname}">Surname</span>!</h2>
+    </div>
+    <div>
+        <h3>Your authorized Subjects to modify:</h3>
+
+        <div th:each="teacherSubject : ${teacherSubjects}">
+            <p th:text="'Subject ID: ' + ${teacherSubject.subjectId} + ' - Name: ' + ${teacherSubject.subjectName}"></p>
+        </div>
+
+    </div>
+</header>
+
+<section id="main-body">
+    <div class="container top">
+        <div class="container search">
+            <form class="form search" th:action="@{/searchClassGroup}" method="post">
+                <div class="inner search">
+                    <div class="courses form-item">
+                        <label for="courseDetails">Course Details</label>
+                        <select id="courseDetails" name="courseId" title="Select Course" required>
+                            <option th:each="course : ${courses}"
+                                    th:value="${course.courseId}"
+                                    th:selected="${course.courseId == selectedCourseId}"
+                                    th:text="|${course.courseId} - ${course.courseName}|">
+
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="classes form-item">
+                        <label for="classDetails">Class Details</label>
+                        <select id="classDetails" name="classId" title="Select Class" required>
+                            <!--                        <option th:each="cls : ${classGroups}"-->
+                            <!--                                th:value="${cls.id}"-->
+                            <!--                                th:selected="${cls.id == selectedClassId}"-->
+                            <!--                                th:text="${cls.id}">-->
+                            <option >
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="subjects form-item">
+                        <label for="subjectDetails">Subject Details</label>
+                        <select id="subjectDetails" name="subjectId" title="Select Subject" required>
+                            <!--                        <option th:each="subject : ${subjects}"-->
+                            <!--                                th:value="${subject.subjectId}"-->
+                            <!--                                th:selected="${subject.subjectId == selectedSubjectId}"-->
+                            <!--                                th:text="|${subject.subjectId} - ${subject.subjectName}|">-->
+                            <option>
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="btn-container form-item">
+                        <button class="btn" type="submit" name="action" value="search"
+                                title="Search all students from selected class and subject">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container modify">
+            <form th:action="@{/studentTableModify}" method="post">
+                <div class="inner modify">
+                    <div class="small input">
+                        <label for="student-id">Student ID</label>
+                        <input type="number" name="studentId" id="student-id" min="1" max="999999" required
+                               title="Enter a number with up to 6 digits" th:value="${selectedStudentId}">
+                    </div>
+                    <div class="small info form-item">
+                        <button class="btn" type="submit" name="action" value="info" title="Select a student from table">
+                            Student Info
+                        </button>
+                    </div>
+                    <div class="small update form-item">
+                        <button class="btn" type="submit" name="action" value="update"
+                                title="Select a student from table to add/update grade">
+                            Add/Update Grade
+                        </button>
+                    </div>
+                    <div class="small delete form-item">
+                        <button class="btn" type="submit" name="action" value="delete"
+                                title="Select a student from table to delete grades">
+                            Delete Grades
+                        </button>
+                    </div>
+                </div>
+            </form>
+    </div>
+    </div>
+
+
+    <div class="container bottom">
+        <table>
+            <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Class Code</th>
+                <th>Subject</th>
+                <th>Student ID</th>
+                <th>Student Full Name</th>
+                <th>First Grade</th>
+                <th>Second Grade</th>
+                <th>Third Grade</th>
+                <th>Final Exam</th>
+                <th>Overall</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="result : ${searchResults}">
+                <td th:text="${result.courseId}"></td>
+                <td th:text="${result.classCode}"></td>
+                <td th:text="${result.subjectId}"></td>
+                <td th:text="${result.studentId}"></td>
+                <td th:text="|${result.firstName} ${result.surName}|"></td>
+                <td th:text="${result.firstGrade}"></td>
+                <td th:text="${result.secondGrade}"></td>
+                <td th:text="${result.thirdGrade}"></td>
+                <td th:text="${result.finalExam}"></td>
+                <td th:text="${result.overAll}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(searchResults)}">
+                <td colspan="10" style="text-align:center;">No data found</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</section>
+<script>
+    function fetchClassesAndSubjects() {
+        const selectedCourseId = document.getElementById('courseDetails').value;
+
+        if (!selectedCourseId) return; // Guard clause if nothing selected
+
+        // Fetch Classes
+        fetch('/getClasses?courseId=' + selectedCourseId)
+            .then(response => response.json())
+            .then(classes => {
+                const classSelect = document.getElementById('classDetails');
+                classSelect.innerHTML = '<option disabled selected>Select Class</option>';
+
+                classes.forEach(cls => {
+                    const option = document.createElement('option');
+                    option.value = cls.id;
+                    option.text = cls.id;
+                    classSelect.appendChild(option);
+                });
+
+                // After loading classes, clear subjects
+                const subjectSelect = document.getElementById('subjectDetails');
+                subjectSelect.innerHTML = '<option disabled selected>Select Subject</option>';
+            })
+            .catch(error => {
+                console.error('Error fetching classes:', error);
+            });
+
+        // Fetch Subjects
+        fetch('/getSubjects?courseId=' + selectedCourseId)
+            .then(response => response.json())
+            .then(subjects => {
+                const subjectSelect = document.getElementById('subjectDetails');
+                subjectSelect.innerHTML = '<option disabled selected>Select Subject</option>';
+
+                subjects.forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = sub.subjectId;
+                    option.text = `${sub.subjectId} - ${sub.subjectName}`;
+                    subjectSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching subjects:', error);
+            });
+    }
+
+    // Event listeners
+    document.getElementById('courseDetails').addEventListener('change', fetchClassesAndSubjects);
+
+    // Page load trigger
+    window.addEventListener('DOMContentLoaded', (event) => {
+        fetchClassesAndSubjects(); // Trigger once page is loaded
+    });
+</script>
+
+
+</body>
+</html>

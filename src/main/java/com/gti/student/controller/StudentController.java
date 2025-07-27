@@ -1,11 +1,9 @@
 package com.gti.student.controller;
 
-import com.gti.student.entity.Grade;
-import com.gti.student.entity.Student;
-import com.gti.student.entity.Subject;
-import com.gti.student.repository.GradeRepository;
-import com.gti.student.repository.StudentRepository;
-import com.gti.student.repository.SubjectRepository;
+import com.gti.student.dto.ClassGroupDTO;
+import com.gti.student.dto.StudentGradeInfoDTO;
+import com.gti.student.entity.*;
+import com.gti.student.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +27,10 @@ public class StudentController {
     private SubjectRepository subjectRepository;
     @Autowired
     private GradeRepository gradeRepository;
+    @Autowired
+    private CourseRepository courseRepository;
+    @Autowired
+    private ClassGroupRepository classGroupRepository;
 
     @GetMapping("/singlestudent")
     public String showSingleStudentPage(Model model,
@@ -70,7 +72,7 @@ public class StudentController {
         } else if ("info".equals(action)) {
             return "redirect:/studentDetails?studentId=" + studentId;
         } else if ("classGroup".equals(action)) {
-        // this will be filled later
+            return "redirect:/classGroup";
         }else if ("addUpdate".equals(action)) {
             handleGradeUpdate(studentId, subjectId, firstGrade, secondGrade, thirdGrade, finalExam, teacherId, model);
         } else if ("delete".equals(action)) {
@@ -152,6 +154,95 @@ public class StudentController {
         model.addAttribute("grades", grades);
         return "studentDetails";
     }
+
+    @GetMapping("/classGroup")
+    public String showClassGroupPage(@ModelAttribute("name") String name,
+                                     @ModelAttribute("surname") String surname,
+                                     @ModelAttribute("teacherId") Integer teacherId,
+                                     Model model) {
+
+        model.addAttribute("name", name);
+        model.addAttribute("surname", surname);
+        List<Subject> teacherSubjects = subjectRepository.findByTeacher_TeacherId(teacherId);
+        model.addAttribute("teacherSubjects",teacherSubjects);
+        List<Course> courses = courseRepository.findAll();
+        model.addAttribute("courses",courses);
+
+        return "classGroup";
+    }
+
+    @GetMapping("/getClasses")
+    @ResponseBody
+    public List<ClassGroup> getClassesByCourse(@RequestParam String courseId) {
+        return classGroupRepository.findByCourse_CourseId(courseId);
+    }
+
+
+    @GetMapping("/getSubjects")
+    @ResponseBody
+    public List<Subject> getSubjectsByCourse(@RequestParam String courseId) {
+        return subjectRepository.findByCourse_CourseId(courseId);
+    }
+
+    @PostMapping("/searchClassGroup")
+    public String searchClassGroupData(@RequestParam String courseId,
+                                       @RequestParam String classId,
+                                       @RequestParam String subjectId,
+                                       @RequestParam String action,
+                                       @ModelAttribute("name") String name,
+                                       @ModelAttribute("surname") String surname,
+                                       @ModelAttribute("teacherId") Integer teacherId,
+                                       Model model) {
+
+        model.addAttribute("name", name);
+        model.addAttribute("surname", surname);
+        model.addAttribute("teacherId", teacherId);
+        model.addAttribute("selectedCourseId", courseId);
+        model.addAttribute("selectedClassId", classId);
+        model.addAttribute("selectedSubjectId", subjectId);
+
+        List<Course> courses = courseRepository.findAll();
+        model.addAttribute("courses", courses);
+
+        if ("search".equals(action)) {
+            List<StudentGradeInfoDTO> results = gradeRepository.findStudentGradesByClassAndSubject(classId, subjectId);
+            model.addAttribute("searchResults", results);
+        }
+
+        return "classGroup";
+    }
+
+    @PostMapping("/studentTableModify")
+    public String studentTableModify(@RequestParam Integer studentId,
+                                     @RequestParam String action,
+//                                     @RequestParam String subjectId,
+//                                     @RequestParam String courseId,
+//                                     @RequestParam String classId,
+                                     @ModelAttribute("name") String name,
+                                     @ModelAttribute("surname") String surname,
+                                     @ModelAttribute("teacherId") Integer teacherId,
+                                     Model model){
+
+        model.addAttribute("name", name);
+        model.addAttribute("surname", surname);
+        model.addAttribute("teacherId", teacherId);
+//        model.addAttribute("selectedCourseId", courseId);
+//        model.addAttribute("selectedClassId", classId);
+//        model.addAttribute("selectedSubjectId", subjectId);
+
+
+
+        if ("info".equals(action)) {
+            return "redirect:/studentDetails?studentId=" + studentId;
+        } else if ("update".equals(action)) {
+            //update comes here
+        } else if ("delete".equals(action)) {
+            //delete comes here
+        }
+        return "classGroup";
+    }
+
+
 
 
     // Methods for mappings

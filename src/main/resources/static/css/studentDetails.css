@@ -89,9 +89,7 @@ h1 {
 .table tbody{
     color: white
 }
-.table tbody tr{
-    /*border-bottom: 1px solid #ccc;*/
-}
+
 tr:hover {
     background-color: #ff5100;
 }
