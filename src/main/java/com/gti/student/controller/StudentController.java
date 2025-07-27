@@ -184,11 +184,10 @@ public class StudentController {
         return subjectRepository.findByCourse_CourseId(courseId);
     }
 
-    @PostMapping("/searchClassGroup")
+    @RequestMapping(value = "/searchClassGroup", method = {RequestMethod.GET, RequestMethod.POST})
     public String searchClassGroupData(@RequestParam String courseId,
                                        @RequestParam String classId,
                                        @RequestParam String subjectId,
-                                       @RequestParam String action,
                                        @ModelAttribute("name") String name,
                                        @ModelAttribute("surname") String surname,
                                        @ModelAttribute("teacherId") Integer teacherId,
@@ -197,17 +196,22 @@ public class StudentController {
         model.addAttribute("name", name);
         model.addAttribute("surname", surname);
         model.addAttribute("teacherId", teacherId);
+        // Selected IDs to preserve selected options
         model.addAttribute("selectedCourseId", courseId);
         model.addAttribute("selectedClassId", classId);
         model.addAttribute("selectedSubjectId", subjectId);
-
+        // Always needed
         List<Course> courses = courseRepository.findAll();
         model.addAttribute("courses", courses);
 
-        if ("search".equals(action)) {
-            List<StudentGradeInfoDTO> results = gradeRepository.findStudentGradesByClassAndSubject(classId, subjectId);
-            model.addAttribute("searchResults", results);
-        }
+        // Populate classGroups and subjects for selected course
+        List<ClassGroup> classGroups = classGroupRepository.findByCourse_CourseId(courseId);
+        model.addAttribute("classGroups", classGroups);
+        List<Subject> subjects = subjectRepository.findByCourse_CourseId(courseId);
+        model.addAttribute("subjects", subjects);
+        // Search Results
+        List<StudentGradeInfoDTO> results = gradeRepository.findStudentGradesByClassAndSubject(classId, subjectId);
+        model.addAttribute("searchResults", results);
 
         return "classGroup";
     }
@@ -215,9 +219,13 @@ public class StudentController {
     @PostMapping("/studentTableModify")
     public String studentTableModify(@RequestParam Integer studentId,
                                      @RequestParam String action,
-//                                     @RequestParam String subjectId,
-//                                     @RequestParam String courseId,
-//                                     @RequestParam String classId,
+                                     @RequestParam String subjectId,
+                                     @RequestParam String courseId,
+                                     @RequestParam String classId,
+                                     @RequestParam(required = false, name = "firstGrade") Double firstGrade,
+                                     @RequestParam(required = false, name = "secondGrade") Double secondGrade,
+                                     @RequestParam(required = false, name = "thirdGrade") Double thirdGrade,
+                                     @RequestParam(required = false, name = "finalExam") Double finalExam,
                                      @ModelAttribute("name") String name,
                                      @ModelAttribute("surname") String surname,
                                      @ModelAttribute("teacherId") Integer teacherId,
@@ -226,18 +234,22 @@ public class StudentController {
         model.addAttribute("name", name);
         model.addAttribute("surname", surname);
         model.addAttribute("teacherId", teacherId);
-//        model.addAttribute("selectedCourseId", courseId);
-//        model.addAttribute("selectedClassId", classId);
-//        model.addAttribute("selectedSubjectId", subjectId);
-
-
+        model.addAttribute("selectedSubjectId", subjectId);
+        model.addAttribute("selectedCourseId", courseId);
+        model.addAttribute("selectedClassId", classId);
 
         if ("info".equals(action)) {
             return "redirect:/studentDetails?studentId=" + studentId;
         } else if ("update".equals(action)) {
-            //update comes here
+            handleGradeUpdate(studentId, subjectId, firstGrade, secondGrade, thirdGrade, finalExam, teacherId, model);
+            return "redirect:/searchClassGroup?courseId=" + courseId
+                    + "&classId=" + classId
+                    + "&subjectId=" + subjectId;
         } else if ("delete".equals(action)) {
-            //delete comes here
+            handleGradeDelete(studentId, subjectId, teacherId, model);
+            return "redirect:/searchClassGroup?courseId=" + courseId
+                    + "&classId=" + classId
+                    + "&subjectId=" + subjectId;
         }
         return "classGroup";
     }

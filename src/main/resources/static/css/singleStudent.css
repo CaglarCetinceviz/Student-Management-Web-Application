@@ -56,7 +56,7 @@ h1 {
     grid-template-columns: repeat(1, 1fr);
     text-align: left;
     padding: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 .subject-container label {
     color: white;
@@ -74,7 +74,10 @@ h1 {
 
 }
 .container.small.error{
- margin-top: 2rem;
+ /*margin-top: 2rem;*/
+}
+.right-container input {
+    width: 40%;
 }
 .container.small input {
     background: rgba(255, 255, 255, 0.3);
@@ -82,6 +85,10 @@ h1 {
     padding: 1rem;
     color: rgb(255, 255, 255);
     resize: none;
+    width: 40%;
+}
+.container.small input::placeholder {
+    color: rgb(0,0,0);
 }
 .container.small input:focus {
     outline: none;
@@ -106,10 +113,12 @@ h1 {
     font-weight: 700;
     background-color: rgb(255, 255, 255);
     color: rgb(159, 118, 87);
+    width: 40%;
+    height: 3rem;
 }
-.btn.id {
-    padding: 0.5rem 3.8rem;
-}
+/*.btn.id {*/
+/*    padding: 0.5rem 3.8rem;*/
+/*}*/
 
 .btn:hover {
     background-image: linear-gradient(to right, rgb(0,153,153) , rgb(0, 204, 204));

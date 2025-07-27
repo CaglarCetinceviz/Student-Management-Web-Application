@@ -122,15 +122,18 @@ form label {
     margin-bottom: .5rem;
     color: rgb(255, 255, 255);
 }
-form input{
+.container.form input{
     background: rgba(255, 255, 255, 0.1);
     border: none;
+    color: rgb(255, 255, 255);
     width: 100%;
     padding: 1rem;
-    color: rgb(255, 255, 255);
     resize: none;
 }
-form input:focus {
+.container.form input::placeholder{
+    color: rgb(0, 0, 0);
+}
+.container.form input:focus {
     outline: none;
     background-color: rgba(255, 255, 255, 0.80);
     color: rgb(60,58,71);

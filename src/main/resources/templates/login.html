@@ -32,11 +32,11 @@
             <form th:action="@{/}" th:object="${loginRequest}" method="POST">
                 <div>
                     <label for="email">Email</label>
-                    <input type="email" th:field="*{email}" id="email" placeholder="Your email" required>
+                    <input type="email" th:field="*{email}" id="email" placeholder="Your email" title="Please enter your email" required>
                 </div>
                 <div>
                     <label for="password">Password</label>
-                    <input type="password" th:field="*{password}" id="password" placeholder="Your password" required>
+                    <input type="password" th:field="*{password}" id="password" placeholder="Your password" title="Please enter your password" required>
                     <p class="muted"><em>All fields are required.</em></p>
                 </div>
                 <div class="right">

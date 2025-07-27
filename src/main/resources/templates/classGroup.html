@@ -45,25 +45,26 @@
                     <div class="classes form-item">
                         <label for="classDetails">Class Details</label>
                         <select id="classDetails" name="classId" title="Select Class" required>
-                            <!--                        <option th:each="cls : ${classGroups}"-->
-                            <!--                                th:value="${cls.id}"-->
-                            <!--                                th:selected="${cls.id == selectedClassId}"-->
-                            <!--                                th:text="${cls.id}">-->
-                            <option >
+                            <option th:each="cls : ${classGroups}"
+                                    th:value="${cls.id}"
+                                    th:selected="${cls.id == selectedClassId}"
+                                    th:text="${cls.id}">
                             </option>
                         </select>
+
                     </div>
 
                     <div class="subjects form-item">
                         <label for="subjectDetails">Subject Details</label>
                         <select id="subjectDetails" name="subjectId" title="Select Subject" required>
-                            <!--                        <option th:each="subject : ${subjects}"-->
-                            <!--                                th:value="${subject.subjectId}"-->
-                            <!--                                th:selected="${subject.subjectId == selectedSubjectId}"-->
-                            <!--                                th:text="|${subject.subjectId} - ${subject.subjectName}|">-->
-                            <option>
+                            <option th:each="subject : ${subjects}"
+                                    th:value="${subject.subjectId}"
+                                    th:selected="${subject.subjectId == selectedSubjectId}"
+                                    th:text="|${subject.subjectId} - ${subject.subjectName}|">
                             </option>
                         </select>
+
+
                     </div>
 
                     <div class="btn-container form-item">
@@ -75,30 +76,53 @@
                 </div>
             </form>
         </div>
+        <div th:if="${message}">
+            <p style="color: greenyellow;" th:text="${message}"></p>
+        </div>
         <div class="container modify">
             <form th:action="@{/studentTableModify}" method="post">
+                <input type="hidden" id="hiddenSubjectId" name="subjectId">
+                <input type="hidden" name="courseId" th:value="${selectedCourseId}">
+                <input type="hidden" name="classId" th:value="${selectedClassId}">
+
+
                 <div class="inner modify">
                     <div class="small input">
-                        <label for="student-id">Student ID</label>
-                        <input type="number" name="studentId" id="student-id" min="1" max="999999" required
-                               title="Enter a number with up to 6 digits" th:value="${selectedStudentId}">
+<!--                        <label for="student-id">Student ID</label>-->
+                        <input class="input" name="studentId" id="student-id" min="1" max="999999" required
+                               title="Enter a number with up to 6 digits" th:value="${selectedStudentId}" placeholder="Student ID">
                     </div>
-                    <div class="small info form-item">
+                    <div class="small input">
                         <button class="btn" type="submit" name="action" value="info" title="Select a student from table">
                             Student Info
                         </button>
                     </div>
-                    <div class="small update form-item">
+                    <div class="small input">
                         <button class="btn" type="submit" name="action" value="update"
                                 title="Select a student from table to add/update grade">
                             Add/Update Grade
                         </button>
                     </div>
-                    <div class="small delete form-item">
+                    <div class="small input">
                         <button class="btn" type="submit" name="action" value="delete"
                                 title="Select a student from table to delete grades">
                             Delete Grades
                         </button>
+                    </div>
+                </div>
+
+                <div class="inner modify">
+                    <div class="small input">
+                        <input class="input" type="number" name="firstGrade" placeholder="First Grade">
+                    </div>
+                    <div class="small input">
+                        <input class="input" type="number" name="secondGrade" placeholder="Second Grade">
+                    </div>
+                    <div class="small input">
+                        <input class="input" type="number" name="thirdGrade" placeholder="Third Grade">
+                    </div>
+                    <div class="small input">
+                        <input class="input" type="number" name="finalExam" placeholder="Final Exam">
                     </div>
                 </div>
             </form>
@@ -145,61 +169,76 @@
 
 </section>
 <script>
-    function fetchClassesAndSubjects() {
-        const selectedCourseId = document.getElementById('courseDetails').value;
+    window.addEventListener('DOMContentLoaded', () => {
+        function fetchClassesAndSubjects() {
+            const selectedCourseId = document.getElementById('courseDetails').value;
 
-        if (!selectedCourseId) return; // Guard clause if nothing selected
+            if (!selectedCourseId) return;
 
-        // Fetch Classes
-        fetch('/getClasses?courseId=' + selectedCourseId)
-            .then(response => response.json())
-            .then(classes => {
-                const classSelect = document.getElementById('classDetails');
-                classSelect.innerHTML = '<option disabled selected>Select Class</option>';
+            // Fetch Classes
+            fetch('/getClasses?courseId=' + selectedCourseId)
+                .then(response => response.json())
+                .then(classes => {
+                    const classSelect = document.getElementById('classDetails');
+                    classSelect.innerHTML = '<option disabled selected>Select Class</option>';
 
-                classes.forEach(cls => {
-                    const option = document.createElement('option');
-                    option.value = cls.id;
-                    option.text = cls.id;
-                    classSelect.appendChild(option);
+                    classes.forEach(cls => {
+                        const option = document.createElement('option');
+                        option.value = cls.id;
+                        option.text = cls.id;
+                        classSelect.appendChild(option);
+                    });
+
+                    const subjectSelect = document.getElementById('subjectDetails');
+                    subjectSelect.innerHTML = '<option disabled selected>Select Subject</option>';
+                })
+                .catch(error => {
+                    console.error('Error fetching classes:', error);
                 });
 
-                // After loading classes, clear subjects
-                const subjectSelect = document.getElementById('subjectDetails');
-                subjectSelect.innerHTML = '<option disabled selected>Select Subject</option>';
-            })
-            .catch(error => {
-                console.error('Error fetching classes:', error);
-            });
+            // Fetch Subjects
+            fetch('/getSubjects?courseId=' + selectedCourseId)
+                .then(response => response.json())
+                .then(subjects => {
+                    const subjectSelect = document.getElementById('subjectDetails');
+                    subjectSelect.innerHTML = '<option disabled selected>Select Subject</option>';
 
-        // Fetch Subjects
-        fetch('/getSubjects?courseId=' + selectedCourseId)
-            .then(response => response.json())
-            .then(subjects => {
-                const subjectSelect = document.getElementById('subjectDetails');
-                subjectSelect.innerHTML = '<option disabled selected>Select Subject</option>';
-
-                subjects.forEach(sub => {
-                    const option = document.createElement('option');
-                    option.value = sub.subjectId;
-                    option.text = `${sub.subjectId} - ${sub.subjectName}`;
-                    subjectSelect.appendChild(option);
+                    subjects.forEach(sub => {
+                        const option = document.createElement('option');
+                        option.value = sub.subjectId;
+                        option.text = `${sub.subjectId} - ${sub.subjectName}`;
+                        subjectSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching subjects:', error);
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching subjects:', error);
+        }
+
+        // Safe to add event listeners now
+        const courseSelect = document.getElementById('courseDetails');
+        if (courseSelect) {
+            courseSelect.addEventListener('change', fetchClassesAndSubjects);
+        } else {
+            console.error("courseDetails select not found.");
+        }
+
+        // Handle hidden subjectId population
+        const subjectSelect = document.getElementById('subjectDetails');
+        const hiddenInput = document.getElementById('hiddenSubjectId');
+        const modifyForm = document.querySelector('form[action*="/studentTableModify"]');
+
+        if (modifyForm && subjectSelect && hiddenInput) {
+            modifyForm.addEventListener('submit', function () {
+                const selectedSubject = subjectSelect.value;
+                console.log("Selected Subject ID before submit:", selectedSubject);
+                hiddenInput.value = selectedSubject;
             });
-    }
-
-    // Event listeners
-    document.getElementById('courseDetails').addEventListener('change', fetchClassesAndSubjects);
-
-    // Page load trigger
-    window.addEventListener('DOMContentLoaded', (event) => {
-        fetchClassesAndSubjects(); // Trigger once page is loaded
+        } else {
+            console.error("Form, subject select, or hidden input not found.");
+        }
     });
 </script>
-
 
 </body>
 </html>

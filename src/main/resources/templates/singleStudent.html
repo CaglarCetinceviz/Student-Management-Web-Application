@@ -43,9 +43,13 @@
                     </select>
                 </div>
                 <div class="container small">
-                    <label for="student-id">Student ID</label>
+<!--                    <label for="student-id">Student ID</label>-->
+
                     <input type="number" name="studentId" id="student-id" min="1" max="999999" required
-                           title="Enter a number with up to 6 digits" th:value="${selectedStudentId}">
+                           title="Enter a number with up to 6 digits" th:value="${selectedStudentId}" placeholder="Student ID">
+                    <button class="btn" type="submit" name="action" value="search"
+                            title="Search entered student ID with selected subject">Search By ID
+                    </button>
                 </div>
 
                 <div class="container small">
@@ -53,14 +57,11 @@
                         Student Info
                     </button>
 <!--                    <a th:href="@{/studentDetails(studentId=${selectedStudentId})}">-->
-                    <button class="btn" type="submit" name="action" value="search"
-                            title="Search entered student ID with selected subject">Search By ID
-                    </button>
-                </div>
-                <div class="container small">
                     <button class="btn" type="submit" name="action" value="classGroup" title="Results by Class">Class
                         Group
                     </button>
+                </div>
+                <div class="container small">
                     <button class="btn" type="submit" name="action" value="addUpdate" title="Update all grades">Add /
                         Update
                     </button>
