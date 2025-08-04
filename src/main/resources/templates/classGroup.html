@@ -11,7 +11,7 @@
 <body>
 <header id="main-header">
     <div class="container">
-        <a href=""><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
+        <a href="https://www.gti.ie/"><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
         <h1>Student Management App Further Education College</h1>
         <h2>Welcome, <span th:text="${name}">Name</span> <span th:text="${surname}">Surname</span>!</h2>
     </div>
@@ -68,7 +68,8 @@
                     </div>
 
                     <div class="btn-container form-item">
-                        <button class="btn" type="submit" name="action" value="search"
+                        <label for="search">Search Table</label>
+                        <button class="btn" id="search" type="submit" name="action" value="search"
                                 title="Search all students from selected class and subject">
                             Search
                         </button>

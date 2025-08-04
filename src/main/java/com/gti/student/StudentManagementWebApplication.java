@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 @SpringBootApplication
-public class StudentManagementWebApplication {
+public class
+StudentManagementWebApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(StudentManagementWebApplication.class, args);

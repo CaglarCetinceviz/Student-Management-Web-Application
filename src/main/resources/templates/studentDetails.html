@@ -15,7 +15,7 @@
 <body>
     <header id="main-header">
         <div class="container">
-            <a href=""><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
+            <a href="https://www.gti.ie/"><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
             <h1>Student Management App Further Education College</h1>
             <h2>Welcome <span th:text="${name}"></span> <span th:text="${surname}"></span> <span
                     th:text="${teacherId}"></span>!</h2>
@@ -28,8 +28,8 @@
                 <form th:action="@{/searchStudentInfo}" method="post">
                     <div class="row">
                         <label for="student-id">Student ID</label>
-                        <input type="number" name="studentId" id="student-id" min="1" max="999999"
-                               title="Enter a number with up to 6 digits"
+                        <input type="number" name="studentId" id="student-id" min="1" max="34"
+                               title="Enter a number from 1 up to 34"
                                th:value="${studentId != null} ? ${studentId} : ''">
                     </div>
                     <div class="row">
@@ -66,7 +66,7 @@
                     </div>
                     <div class="row">
                         <label for="dob">Date of Birth</label>
-                        <input type="text" name="dob" id="dob" title="Please enter dob" required
+                        <input type="date" name="dob" id="dob" title="Please enter 'YYYY-mm-dd'" required
                                th:value="${dob}">
                     </div>
 

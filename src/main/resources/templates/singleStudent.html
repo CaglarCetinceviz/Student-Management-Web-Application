@@ -15,7 +15,7 @@
 <body>
     <header id="main-header">
         <div class="container">
-            <a href=""><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
+            <a href="https://www.gti.ie/"><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
             <h1>Student Management App Further Education College</h1>
             <h2>Welcome <span th:text="${name}"></span> <span th:text="${surname}"></span> <span
                     th:text="${teacherId}"></span>!</h2>
@@ -45,8 +45,8 @@
                 <div class="container small">
 <!--                    <label for="student-id">Student ID</label>-->
 
-                    <input type="number" name="studentId" id="student-id" min="1" max="999999" required
-                           title="Enter a number with up to 6 digits" th:value="${selectedStudentId}" placeholder="Student ID">
+                    <input type="number" name="studentId" id="student-id" min="1" max="34" required
+                           title="Enter a number from 1 up to 34" th:value="${selectedStudentId}" placeholder="Student ID">
                     <button class="btn" type="submit" name="action" value="search"
                             title="Search entered student ID with selected subject">Search By ID
                     </button>

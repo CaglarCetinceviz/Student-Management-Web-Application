@@ -31,13 +31,11 @@ h1 {
 /* header */
 #main-header {
     text-align: center;
-    padding: 0.5rem 0 ;
     margin: 2rem auto 1rem auto;
     width: 70%;
 }
 
 #main-body {
-
     padding: 2rem 2rem;
     margin: 2rem auto;
     width: 60%;
@@ -96,7 +94,6 @@ h1 {
     color: rgb(60,58,71);
 }
 
-
 .container.small input, label {
     border-radius: 5px;
     padding: 0.5rem;
@@ -116,17 +113,23 @@ h1 {
     width: 40%;
     height: 3rem;
 }
-/*.btn.id {*/
-/*    padding: 0.5rem 3.8rem;*/
-/*}*/
-
 .btn:hover {
     background-image: linear-gradient(to right, rgb(0,153,153) , rgb(0, 204, 204));
     color: rgb(60, 58, 71)
 }
-
 .muted {
     padding: 1rem 0rem;
     text-align: left;
     color: white;
+}
+@media screen and (max-width: 1200px) {
+    #main-header{
+        width: 50%;
+    }
+    #main-body form {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 1rem;
+    }
+
 }

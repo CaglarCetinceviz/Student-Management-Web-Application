@@ -135,7 +135,7 @@ public class StudentController {
                                     @RequestParam(required = false) String classCode,
                                     @RequestParam(required = false) String PPSN,
                                     @RequestParam(required = false) String gender,
-                                    @RequestParam(required = false) String dob,
+                                    @RequestParam(required = false) LocalDate dob,
                                     @RequestParam(required = false) String email,
                                     @RequestParam(required = false) String phone,
                                     @RequestParam(required = false) String addressLineOne,
@@ -152,6 +152,7 @@ public class StudentController {
                 addressLineOne, addressLineTwo, city, eircode, model);
         List<Grade> grades = gradeRepository.findByStudentId(studentId);
         model.addAttribute("grades", grades);
+        handleStudentInfoSearch(studentId, model);
         return "studentDetails";
     }
 
@@ -296,11 +297,13 @@ public class StudentController {
             model.addAttribute("classCode", student.getClassCode().toUpperCase());
             model.addAttribute("PPSN", student.getPpsn().toUpperCase());
             model.addAttribute("gender", student.getGender().toUpperCase());
-            model.addAttribute("dob", student.getDateOfBirth().toUpperCase());
+            model.addAttribute("dob", student.getDateOfBirth());
             model.addAttribute("email", student.getEmail().toUpperCase());
             model.addAttribute("phone", student.getPhoneNumber().toUpperCase());
             model.addAttribute("addressLineOne", student.getAddressLineOne().toUpperCase());
-            model.addAttribute("addressLineTwo", student.getAddressLineTwo().toUpperCase());
+            String addressLineTwo = student.getAddressLineTwo();
+            model.addAttribute("addressLineTwo",
+                    addressLineTwo != null ? addressLineTwo.toUpperCase() : "");
             model.addAttribute("city", student.getCity().toUpperCase());
             model.addAttribute("eircode", student.getEircode().toUpperCase());
         } else {
@@ -311,7 +314,7 @@ public class StudentController {
     }
 
     private void handleStudentInfoUpdate(Integer studentId, String firstName, String surName, String classCode,
-                                         String PPSN, String gender, String dob, String email, String phone, String addressLineOne,
+                                         String PPSN, String gender, LocalDate dob, String email, String phone, String addressLineOne,
                                          String addressLineTwo, String city, String eircode, Model model) {
         Student student = studentRepository.findById(studentId).orElse(null);
         if (student != null) {

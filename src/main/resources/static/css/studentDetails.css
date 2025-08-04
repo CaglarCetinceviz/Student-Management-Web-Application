@@ -1,20 +1,17 @@
 /* Reset */
 * {
     box-sizing: border-box;
-    /* Reset padding and margin on all elements */
     margin: 0;
     padding: 0;
 }
 
 /* Typography */
-
 html {
     font-size: 12px;
     text-align: center;
 }
 
 body {
-
     font-family: 'poppins', sans-serif;
     line-height: 1.55;
     color: rgb(60,58,71);
@@ -27,7 +24,12 @@ h1 {
     letter-spacing: 1.5px;
     margin-top: 1rem !important;
 }
-
+/* header */
+#main-header {
+    text-align: center;
+    margin: 2rem auto 1rem auto;
+    width: 70%;
+}
 #main-body{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -42,15 +44,15 @@ h1 {
 .studentDetails{
     text-align: left;
 }
-.container.left{
-    /*display: flex;*/
-    /*justify-content: space-between;*/
-}
 .row{
     padding: 0.5rem 0.5rem;
     display: flex;
     justify-content: space-between;
-
+}
+#dob {
+    padding: 0.5rem 0.5rem;
+    /*font-size: 1.2rem;*/
+    width: 22.3%;
 }
 .row label {
     color: white;
@@ -63,7 +65,7 @@ h1 {
     border: none;
     padding: 0.5rem;
     color: rgb(255, 255, 255);
-    resize: none;
+    /*resize: none;*/
 }
 .row input:focus{
     outline: none;
@@ -76,12 +78,8 @@ h1 {
     border-collapse: collapse;
     width: 100%;
 }
-.table thead {
-
-}
 .table thead th{
     color: yellow;
-    /*gap: 2rem;*/
     padding-right: 2rem !important;
     padding-bottom: 2rem;
     border-bottom: 1px solid #ddd;
@@ -89,7 +87,6 @@ h1 {
 .table tbody{
     color: white
 }
-
 tr:hover {
     background-color: #ff5100;
 }
@@ -115,4 +112,16 @@ tr:hover {
 .print:hover {
     background: red;
     color: white;
+}
+@media screen and (max-width: 1300px) {
+    #main-header{
+        width: 50%;
+    }
+    #main-body {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 1rem;
+        width: 70%;
+    }
+
 }

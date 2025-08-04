@@ -2,6 +2,7 @@ package com.gti.student.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -27,7 +28,8 @@ public abstract class Person {
     private String addressLineTwo;
     private String city;
     private String eircode;
-    private String dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfBirth;
 
     // Constructors
     public Person() {
@@ -36,7 +38,7 @@ public abstract class Person {
 
     // Full Constructor
     public Person(String firstName, String surName, String ppsn, String gender, String email,
-                  String phoneNumber, String addressLineOne, String addressLineTwo, String city, String eircode, String dateOfBirth) {
+                  String phoneNumber, String addressLineOne, String addressLineTwo, String city, String eircode, LocalDate dateOfBirth) {
         this.firstName = firstName;
         this.surName = surName;
         this.ppsn = ppsn;
@@ -130,11 +132,11 @@ public abstract class Person {
         this.eircode = eircode;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -145,10 +147,7 @@ public abstract class Person {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Objects.equals(firstName, person.firstName) && Objects.equals(surName, person.surName) && Objects.equals(ppsn, person.ppsn)
-                && Objects.equals(gender, person.gender) && Objects.equals(email, person.email) && Objects.equals(phoneNumber, person.phoneNumber)
-                && Objects.equals(addressLineOne, person.addressLineOne) && Objects.equals(addressLineTwo, person.addressLineTwo)
-                && Objects.equals(city, person.city) && Objects.equals(eircode, person.eircode) && Objects.equals(dateOfBirth, person.dateOfBirth);
+        return Objects.equals(firstName, person.firstName) && Objects.equals(surName, person.surName) && Objects.equals(ppsn, person.ppsn) && Objects.equals(gender, person.gender) && Objects.equals(email, person.email) && Objects.equals(phoneNumber, person.phoneNumber) && Objects.equals(addressLineOne, person.addressLineOne) && Objects.equals(addressLineTwo, person.addressLineTwo) && Objects.equals(city, person.city) && Objects.equals(eircode, person.eircode) && Objects.equals(dateOfBirth, person.dateOfBirth);
     }
 
     @Override
