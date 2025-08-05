@@ -125,10 +125,12 @@ h1 {
 @media screen and (max-width: 1200px) {
     html {
         font-size: 12px;
+        text-align: center;
     }
     #main-header {
         padding: 0 0;
         width: 100%;
+        min-width: 600px;
     }
     h1 {
         font-size: 2rem !important;

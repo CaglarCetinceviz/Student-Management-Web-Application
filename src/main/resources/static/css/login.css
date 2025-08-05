@@ -155,10 +155,13 @@ form label {
 @media screen and (max-width: 1200px) {
     html {
         font-size: 10px;
+        text-align: center;
     }
     #main-header {
-        padding: 0 0;
         width: 100%;
+        padding: 0 0;
+        margin: 1rem 1rem;
+        min-width: 600px;
     }
     h1 {
         font-size: 3rem !important;
@@ -170,9 +173,9 @@ form label {
         padding: 2rem 0;
     }
     .container.header {
-        padding: 0 0;
-        margin: 1rem 0;
         width: 100%;
+        padding: 0 0;
+        margin: 0 0;
     }
     #login {
         display: grid;
@@ -182,5 +185,11 @@ form label {
     }
     .header{
         width: 50%;
+    }
+    .footer {
+        width: 100%;
+        padding: 0 0;
+        margin: 1rem 1rem;
+        min-width: 600px;
     }
 }
