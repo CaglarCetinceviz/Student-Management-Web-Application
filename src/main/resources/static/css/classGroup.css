@@ -147,11 +147,22 @@ table tbody td{
     padding-bottom: 1rem !important;
 }
 @media screen and (max-width: 1300px) {
-    #main-header{
-        width: 50%;
+    html {
+        font-size: 12px;
+    }
+    #main-header {
+        padding: 0 0;
+        width: 100%;
+    }
+    h1 {
+        font-size: 2rem !important;
+        font-weight: 700;
+        letter-spacing: .5px;
+        margin-top: 1rem !important;
     }
     #main-body {
         min-width: 1000px !important;
+        width: 100%;
     }
     .inner.search{
         display: grid;

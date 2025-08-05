@@ -17,13 +17,12 @@
         <div class="container">
             <a href="https://www.gti.ie/"><img src="images/gti-logo.png" alt="Logo for Login Page"></a>
             <h1>Student Management App Further Education College</h1>
-            <h2>Welcome <span th:text="${name}"></span> <span th:text="${surname}"></span> <span
-                    th:text="${teacherId}"></span>!</h2>
+            <h2>Welcome <span th:text="${name}"></span> <span th:text="${surname}"></span>!</h2>
         </div>
         <div>
             <h3>Your authorized Subjects to modify:</h3>
             <div th:each="teacherSubject : ${teacherSubjects}">
-                <p th:text="'Subject ID: ' + ${teacherSubject.subjectId} + ' - Name: ' + ${teacherSubject.subjectName}"></p>
+                <p class="auth" th:text="'Subject ID: ' + ${teacherSubject.subjectId} + ' - Name: ' + ${teacherSubject.subjectName}"></p>
             </div>
         </div>
     </header>

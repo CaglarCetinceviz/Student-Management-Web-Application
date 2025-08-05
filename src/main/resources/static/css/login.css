@@ -153,9 +153,32 @@ form label {
 
 
 @media screen and (max-width: 1200px) {
+    html {
+        font-size: 10px;
+    }
+    #main-header {
+        padding: 0 0;
+        width: 100%;
+    }
+    h1 {
+        font-size: 3rem !important;
+        font-weight: 700;
+        letter-spacing: .5px;
+        margin-top: 1rem !important;
+    }
+    h2 {
+        padding: 2rem 0;
+    }
+    .container.header {
+        padding: 0 0;
+        margin: 1rem 0;
+        width: 100%;
+    }
     #login {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        width: 100%;
+        min-width: 600px;
     }
     .header{
         width: 50%;
