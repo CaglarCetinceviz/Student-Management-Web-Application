@@ -2,10 +2,13 @@
 
 A full-stack web application for managing student records, built with Spring Boot and deployed on AWS. This was my final project for the Level 6 Advanced Software Development course.
 
-Built using HTML, CSS for Frontend, Java, Spring Boot, MySQL, AWS EC2/RDS, Nginx, SSL, Maven, Git, and IntelliJ IDEA for Backend to represent my final college project. 
-Features include CRUD operations, user authentication. Engineered the web application to AWS EC2 with a MySQL database hosted on AWS RDS.
-
 **Live Demo:** [https://studentapp.academy/](https://studentapp.academy/)
+
+## Example Screenshots
+![Login Page Screenshot](./Student%20Management%20App%20Assets/login-page.png)
+![Single Student Manupulation Screenshot](./Student%20Management%20App%20Assets/single-student-search.png)
+![Student Info ScreenShot](./Student%20Management%20App%20Assets/student-info.png)
+![Class Group Table Format ScreenShot](./Student%20Management%20App%20Assets/table-format.png)
 
 ## Features
 
