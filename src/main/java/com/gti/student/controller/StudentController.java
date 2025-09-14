@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -230,7 +231,8 @@ public class StudentController {
                                      @ModelAttribute("name") String name,
                                      @ModelAttribute("surname") String surname,
                                      @ModelAttribute("teacherId") Integer teacherId,
-                                     Model model){
+                                     Model model,
+                                     RedirectAttributes redirectAttributes){
 
         model.addAttribute("name", name);
         model.addAttribute("surname", surname);
@@ -242,7 +244,7 @@ public class StudentController {
         if ("info".equals(action)) {
             return "redirect:/studentDetails?studentId=" + studentId;
         } else if ("update".equals(action)) {
-            handleGradeUpdate(studentId, subjectId, firstGrade, secondGrade, thirdGrade, finalExam, teacherId, model);
+            handleGradeUpdateGroup(studentId, subjectId, firstGrade, secondGrade, thirdGrade, finalExam, teacherId, redirectAttributes);
             return "redirect:/searchClassGroup?courseId=" + courseId
                     + "&classId=" + classId
                     + "&subjectId=" + subjectId;
@@ -364,6 +366,31 @@ public class StudentController {
             }
         } else {
             model.addAttribute("message", "No grade record found to update.");
+        }
+    }
+
+    private void handleGradeUpdateGroup(Integer studentId, String subjectId, Double firstGrade, Double secondGrade,
+                                   Double thirdGrade, Double finalExam, Integer teacherId, RedirectAttributes redirectAttributes) {
+        Grade record = gradeRepository.findByStudentIdAndSubjectId(studentId, subjectId);
+        if (record != null) {
+            Subject subject = subjectRepository.findBySubjectId(subjectId).orElse(null);
+            if (subject != null && subject.getTeacher().getTeacherId().equals(teacherId)) {
+                try {
+                    record.setFirstGrade(firstGrade);
+                    record.setSecondGrade(secondGrade);
+                    record.setThirdGrade(thirdGrade);
+                    record.setFinalExam(finalExam);
+                    gradeRepository.save(record);
+                    redirectAttributes.addFlashAttribute("message", "Grades updated successfully.");
+                } catch (Exception e) {
+                    logger.error("Grade update failed", e);
+                    redirectAttributes.addFlashAttribute("message", "Failed to update grades: " + e.getMessage());
+                }
+            } else {
+                redirectAttributes.addFlashAttribute("message", "You are not authorized to update this grade.");
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("message", "No grade record found to update.");
         }
     }
 
