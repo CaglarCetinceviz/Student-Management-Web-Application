@@ -22,7 +22,7 @@ A full-stack web application for managing student records, built with Spring Boo
 * **Backend:** Java, Spring Boot, Spring Security, Maven
 * **Frontend:** HTML, CSS, Thymeleaf
 * **Database:** MySQL (Hosted on AWS RDS)
-* **Deployment:** AWS EC2, Nginx, SSL (Let's Encrypt)
+* **Deployment:** AWS EC2, Nginx, SSL
 * **Version Control:** Git / GitHub
 
 ## Challenges & Lessons Learned
