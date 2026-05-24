@@ -9,6 +9,7 @@ A full-stack web application for managing student records, built with Spring Boo
 ![Single Student Manupulation Screenshot](./Student%20Management%20App%20Assets/single-student-search.png)
 ![Student Info ScreenShot](./Student%20Management%20App%20Assets/student-info.png)
 ![Class Group Table Format ScreenShot](./Student%20Management%20App%20Assets/table-format.png)
+![Trello Project Plan Screenshot](./Student%20Management%20App%20Assets/trello.png)
 
 ## Features
 
