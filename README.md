@@ -3,7 +3,8 @@
 A full-stack web application for managing student records, built with Spring Boot and deployed on AWS. This was my final project for the Level 6 Advanced Software Development course.
 
 **Live Demo:** [https://studentapp.academy/](https://studentapp.academy/)
-*italic This website is terminated since AWS free tier expired*
+
+*This website is terminated since AWS free tier expired*
 
 ## Example Screenshots
 ![Login Page Screenshot](./Student%20Management%20App%20Assets/login-page.png)
